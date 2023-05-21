@@ -1,6 +1,6 @@
-from BaseOAuth import BaseOAuth
+from Service.BaseOAuthService import BaseOAuthService
 
-class GoogleOAuth(BaseOAuth):
+class GoogleOAuthService(BaseOAuthService):
     def __init__(self):
         pass
 
