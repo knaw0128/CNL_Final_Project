@@ -1,5 +1,7 @@
-class StudentCheckin:
-    def __init__(self) -> None:
-        self.CourseKey: str
-        self.StudentId: str
-        self.CheckinTime: str
+from pydantic import BaseModel
+from typing import Union
+
+class StudentCheckin(BaseModel):
+    CourseKey: Union[str, None] = None
+    StudentId: Union[str, None] = None
+    CheckinTime: str
