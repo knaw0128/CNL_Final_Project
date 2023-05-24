@@ -5,11 +5,11 @@ class BaseRepository(IBaseRepository):
     def __init__(self, repoType) -> None:
         super().__init__(repoType)
         self.db_settings = {
-            "host": "127.0.0.1",
+            "host": "140.112.29.203",
             "port": 3306,
-            "user": "root",
-            "password": "資料庫管理員密碼",
-            "db": type(repoType),
+            "user": "cnl",
+            "password": "cnlfinal",
+            "db": "appdb",
             "charset": "utf8"
         }
         self.table_name = type(repoType)
@@ -41,3 +41,7 @@ class BaseRepository(IBaseRepository):
     
     def Delete(self, primarykey):
         return super().Delete(primarykey)
+    
+
+if __name__ == "__main__":
+    tmp = BaseRepository(2)

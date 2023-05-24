@@ -1,6 +1,5 @@
 from pydantic import BaseModel
-from typing import Union
 
 class UserAccount(BaseModel):
-    ID: Union[str, None] = None
+    ID: str
     password: str
