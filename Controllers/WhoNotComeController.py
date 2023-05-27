@@ -8,7 +8,7 @@ app = FastAPI()
 def PostRegister():
     raise NotImplementedError
 
-@app.post("/login")
+@app.post("/login/{account}/{password}")
 def PostLogin():
     raise NotImplementedError
 
@@ -18,7 +18,7 @@ def GetLogout():
 
 @app.get("/rollcall/{courseKey}")
 def GetRollcall(courseKey:str):
-    pass
+    RollcallService.Rollcall().GetStudentList(courseKey)
 
 @app.post("/rollcall/{owner}/{duration}")
 def PostRollcall(owner:str,duration:float):
