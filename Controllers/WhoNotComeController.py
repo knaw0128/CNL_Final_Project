@@ -16,13 +16,14 @@ def PostLogin():
 def GetLogout():
     raise NotImplementedError
 
-@app.get("/rollcall/{owner}/{duration}")
-def GetRollcall(owner:str,duration:float):
+@app.get("/rollcall/{courseKey}")
+def GetRollcall(courseKey:str):
+    pass
+
+@app.post("/rollcall/{owner}/{duration}")
+def PostRollcall(owner:str,duration:float):
     RollcallService.Rollcall().StartRollcall(duration,owner)
 
-@app.post("/rollcall")
-def PostRollcall():
-    raise NotImplementedError
 
 @app.post("/googleoauth") # Not sure method
 def PostGoogleOAuth():
