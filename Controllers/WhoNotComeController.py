@@ -9,21 +9,21 @@ def PostRegister():
     raise NotImplementedError
 
 @app.post("/login")
-def PostRegister():
+def PostLogin():
     raise NotImplementedError
 
 @app.get("/logout")
-def PostRegister():
+def GetLogout():
     raise NotImplementedError
 
-@app.get("/rollcall")
-def PostRegister():
-    raise NotImplementedError
+@app.get("/rollcall/{owner}/{duration}")
+def GetRollcall(owner:str,duration:float):
+    RollcallService.Rollcall().StartRollcall(duration,owner)
 
 @app.post("/rollcall")
-def PostRegister():
+def PostRollcall():
     raise NotImplementedError
 
 @app.post("/googleoauth") # Not sure method
-def PostRegister():
+def PostGoogleOAuth():
     raise NotImplementedError
