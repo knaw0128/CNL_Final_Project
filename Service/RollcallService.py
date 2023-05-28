@@ -7,7 +7,7 @@ from datetime import datetime
 
 class Rollcall:
     def __init__(self) -> None:
-        self.repo =  repo.BaseRepository(CoursekeyVerify)
+        self.repo =  repo.BaseRepository(CoursekeyVerify())
     def StartRollcall(self,duration,owner):
         # return CourseKey
         # generate courseKey, startTime, duration
@@ -17,7 +17,7 @@ class Rollcall:
         self.repo.Create(instance)
         return courseKey
     def GetStudentList(self,courseKey:str):
-        ret:list[StudentCheckin] = repo.BaseRepository(StudentCheckin).Read(courseKey)
+        ret:list[StudentCheckin] = repo.BaseRepository(StudentCheckin).Read(CoursekeyVerify(courseKey=courseKey))
         return ret
         
         

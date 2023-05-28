@@ -1,6 +1,6 @@
 class CoursekeyVerify:
-    def __init__(self,courseKey,startTine,endTime,owner) -> None:
-        self.CourseKey: str
-        self.StartTime: str
-        self.EndTime: str
-        self.Owner: str
+    def __init__(self,courseKey=None,startTime=None,endTime=None,owner=None) -> None:
+        self.CourseKey: str = courseKey
+        self.StartTime: str = startTime
+        self.EndTime: str = endTime
+        self.Owner: str = owner
