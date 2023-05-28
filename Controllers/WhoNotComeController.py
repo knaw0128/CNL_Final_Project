@@ -17,7 +17,7 @@ def PostLogin(account:str,password:str):
 def GetLogout():
     AccountService.AccountService().Logout()
 
-@app.get("/rollcall/{courseKey}")
+@app.get("/getStudentList/{courseKey}")
 def GetRollcall(courseKey:str):
     RollcallService.Rollcall().GetStudentList(courseKey)
 
