@@ -5,22 +5,22 @@ class AccountService:
     def __init__(self) -> None:
         self.repo = repo.BaseRepository(UserAccount)
 
-    def Register(self, username, password):
+    def Register(self, userAccount):
         # input: username, password
         # output: baserepo create
-        d = {'ID':username, 'password': password}
+        d = {'ID': userAccount.ID, 'password': userAccount.password}
         instance = UserAccount(**d)
         self.repo.Create(instance)
 
-    def Login(self, username, password):
+    def Login(self, userAccount):
         # input: username, password
         # send username to baserepo read
         # it returns the correct password
         # this function checks it's correct or not
-        d = {'ID':username,'password':None}
+        d = {'ID':userAccount.ID,'password':None}
         UserInfo = UserAccount(**d)
         instance = self.repo.Read(UserInfo)
-        if instance.password == password:
+        if instance.password == userAccount.password:
             return True
         else:
             return False 
