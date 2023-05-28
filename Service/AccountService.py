@@ -1,9 +1,11 @@
 import Repository.BaseRepository as repo
 from Model.UserAccount import UserAccount
+from JWTService  import JWTService
 
 class AccountService:
     def __init__(self) -> None:
         self.repo = repo.BaseRepository(UserAccount)
+        self.jwtService = JWTService()
 
     def Register(self, userAccount):
         # input: username, password

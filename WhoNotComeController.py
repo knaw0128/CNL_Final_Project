@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from Model import *
 from Service import *
 
@@ -10,8 +10,9 @@ def PostRegister(account:UserAccount.UserAccount):
     
 
 @app.post("/login/")
-def PostLogin(account:UserAccount.UserAccount):
-    AccountService.AccountService().Login(account)
+def PostLogin(response: Response, account:UserAccount.UserAccount):
+    if AccountService.AccountService().Login(account):
+        token = JWTService.JWTService().de
 
 @app.get("/logout/")
 def GetLogout():

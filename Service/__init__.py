@@ -1,1 +1,1 @@
-import AccountService, BaseOAuthService, GoogleOAuthService, RollcallService
+import AccountService, BaseOAuthService, GoogleOAuthService, RollcallService, JWTService
