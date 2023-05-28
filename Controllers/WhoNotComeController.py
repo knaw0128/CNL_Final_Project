@@ -14,11 +14,11 @@ def PostLogin(account:UserAccount.UserAccount):
     AccountService.AccountService().Login(account)
 
 @app.get("/logout/")
-def GetLogout(account:UserAccount.UserAccount):
-    AccountService.AccountService().Logout(account)
+def GetLogout():
+    AccountService.AccountService().Logout()
 
 @app.get("/getStudentList/")
-def GetRollcall(courseKey:StudentCheckin.StudentCheckin):
+def GetRollcall(courseKey:str):
     RollcallService.Rollcall().GetStudentList(courseKey)
 
 @app.post("/rollcall/")
