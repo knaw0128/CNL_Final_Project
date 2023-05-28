@@ -4,17 +4,18 @@ from Service import *
 
 app = FastAPI()
 
-@app.post("/register")
-def PostRegister():
-    raise NotImplementedError
+@app.post("/register/{account}/{password}")
+def PostRegister(account:str,password:str):
+    AccountService.AccountService().Register(account,password)
+    
 
 @app.post("/login/{account}/{password}")
-def PostLogin():
-    raise NotImplementedError
+def PostLogin(account:str,password:str):
+    AccountService.AccountService().Login(account,password)
 
 @app.get("/logout")
 def GetLogout():
-    raise NotImplementedError
+    AccountService.AccountService().Logout()
 
 @app.get("/rollcall/{courseKey}")
 def GetRollcall(courseKey:str):
@@ -25,6 +26,6 @@ def PostRollcall(owner:str,duration:float):
     RollcallService.Rollcall().StartRollcall(duration,owner)
 
 
-@app.post("/googleoauth") # Not sure method
-def PostGoogleOAuth():
-    raise NotImplementedError
+@app.post("/googleoauth/{token}/{courseKey}") # Not sure method
+def PostGoogleOAuth(token,courseKey):
+    GoogleOAuthService.GoogleOAuthService().InsertStudentInfo(token,courseKey)
