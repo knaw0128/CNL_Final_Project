@@ -3,4 +3,4 @@ from pydantic import BaseModel
 
 class UserAccount(BaseModel):
     ID: str
-    password: Optional[str]
+    Password: Optional[str]
