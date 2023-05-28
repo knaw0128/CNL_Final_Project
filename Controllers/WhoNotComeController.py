@@ -4,28 +4,28 @@ from Service import *
 
 app = FastAPI()
 
-@app.post("/register/{account}/{password}")
-def PostRegister(account:str,password:str):
-    AccountService.AccountService().Register(account,password)
+@app.post("/register/")
+def PostRegister(account:UserAccount.UserAccount):
+    AccountService.AccountService().Register(account)
     
 
-@app.post("/login/{account}/{password}")
-def PostLogin(account:str,password:str):
-    AccountService.AccountService().Login(account,password)
+@app.post("/login/")
+def PostLogin(account:UserAccount.UserAccount):
+    AccountService.AccountService().Login(account)
 
-@app.get("/logout/{account}")
-def GetLogout(account):
+@app.get("/logout/")
+def GetLogout(account:UserAccount.UserAccount):
     AccountService.AccountService().Logout(account)
 
-@app.get("/getStudentList/{courseKey}")
-def GetRollcall(courseKey:str):
+@app.get("/getStudentList/")
+def GetRollcall(courseKey:StudentCheckin.StudentCheckin):
     RollcallService.Rollcall().GetStudentList(courseKey)
 
-@app.post("/rollcall/{owner}/{duration}")
-def PostRollcall(owner:str,duration:float):
-    RollcallService.Rollcall().StartRollcall(duration,owner)
+@app.post("/rollcall/")
+def PostRollcall(info:CoursekeyVerify.CoursekeyVerify):
+    RollcallService.Rollcall().StartRollcall(info)
 
 
-@app.post("/googleoauth/{token}/{courseKey}") # Not sure method
-def PostGoogleOAuth(token,courseKey):
-    GoogleOAuthService.GoogleOAuthService().InsertStudentInfo(token,courseKey)
+@app.get("/googleoauth/") # Not sure method
+def PostGoogleOAuth(state,access_token):
+    GoogleOAuthService.GoogleOAuthService().InsertStudentInfo(access_token,state)
