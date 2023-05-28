@@ -1,4 +1,6 @@
-class UserAccount:
-    def __init__(self) -> None:
-        self.ID: str
-        self.password: str
+from typing import Optional
+from pydantic import BaseModel
+
+class UserAccount(BaseModel):
+    ID: str
+    password: Optional[str]
