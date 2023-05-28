@@ -15,7 +15,7 @@ class BaseRepository(IBaseRepository):
         self.table_name = type(repoType).__name__
         self.connect_db = pymysql.connect(**self.db_settings)
 
-    def Create(self, newData: object):
+    def Create(self, newData):
         if type(newData).__name__ != self.table_name:
             raise TypeError("Wrong storing type")
         
@@ -37,7 +37,35 @@ class BaseRepository(IBaseRepository):
             return -1
             
     def Read(self, primarykey):
-        return super().Read(primarykey)
+        if type(primarykey).__name__ != self.table_name:
+            raise TypeError("Wrong storing type")
+        
+        command_string = f"SELECT * FROM {self.table_name} "
+        condition = "WHERE "
+        for key in primarykey.__dict__.keys():
+            if primarykey.__dict__[key] == None:
+                continue
+            condition = f"{condition} {key}=\'{primarykey.__dict__[key]}\' AND "
+        
+        if condition == "WHERE ":
+            command_string += ";"
+        else:
+            command_string += f"{condition[:-4]};"
+
+        try:
+            with self.connect_db.cursor() as cursor:
+                cursor.execute(command_string)
+                all_data = cursor.fetchall()
+                result = []
+                for data in all_data:
+                    now = {}
+                    for idx, key in enumerate(primarykey.__dict__.keys()):
+                        now[key] = data[idx]
+                    result.append(type(primarykey)(**now))
+            return result
+        except pymysql.MySQLError as e:
+            print('Got error {!r}, errno is {}'.format(e, e.args[0]))
+            return -1
     
     def Update(self, newData, primarykey):
         if type(newData).__name__ != self.table_name:
