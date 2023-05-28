@@ -6,26 +6,26 @@ app = FastAPI()
 
 @app.post("/register/")
 def PostRegister(account:Model.UserAccount.UserAccount):
-    Model.AccountService.AccountService().Register(account)
+    return Service.AccountService.AccountService().Register(account)
     
 
 @app.post("/login/")
 def PostLogin(account:Model.UserAccount.UserAccount):
-    Model.AccountService.AccountService().Login(account)
+    return Service.AccountService.AccountService().Login(account)
 
 @app.get("/logout/")
 def GetLogout():
-    Model.AccountService.AccountService().Logout()
+    return Service.AccountService.AccountService().Logout()
 
 @app.get("/getStudentList/")
 def GetRollcall(courseKey:str):
-    Service.RollcallService.Rollcall().GetStudentList(courseKey)
+    return Service.RollcallService.Rollcall().GetStudentList(courseKey)
 
 @app.post("/rollcall/")
 def PostRollcall(info:Model.CoursekeyVerify.CoursekeyVerify):
-    Service.RollcallService.Rollcall().StartRollcall(info)
+    return Service.RollcallService.Rollcall().StartRollcall(info)
 
 
 @app.get("/googleoauth/") # Not sure method
 def PostGoogleOAuth(state,access_token):
-    Service.GoogleOAuthService.GoogleOAuthService().InsertStudentInfo(access_token,state)
+    return Service.GoogleOAuthService.GoogleOAuthService().InsertStudentInfo(access_token,state)
