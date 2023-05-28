@@ -5,7 +5,7 @@ class AccountService:
         pass
     def Register(account:str,password:str):
         pass
-    def Logout():
+    def Logout(account:str):
         pass
 
     
