@@ -8,7 +8,8 @@ class AccountService:
     def Register(self, username, password):
         # input: username, password
         # output: baserepo create
-        instance = UserAccount(username, password)
+        d = {'ID':username, 'password': password}
+        instance = UserAccount(**d)
         self.repo.Create(instance)
 
     def Login(self, username, password):
@@ -16,7 +17,9 @@ class AccountService:
         # send username to baserepo read
         # it returns the correct password
         # this function checks it's correct or not
-        instance = self.repo.Read(username)
+        d = {'ID':username,'password':None}
+        UserInfo = UserAccount(**d)
+        instance = self.repo.Read(UserInfo)
         if instance.password == password:
             return True
         else:
