@@ -5,4 +5,5 @@ class GoogleOAuthService(BaseOAuthService):
         pass
 
     def InsertStudentInfo(self, token, coursekey):
+        # I should extract student id from the token
         return super().InsertStudentInfo(token, coursekey)
