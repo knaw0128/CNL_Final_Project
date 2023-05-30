@@ -1,6 +1,11 @@
 from fastapi import FastAPI, Response
-from Model import *
-from Service import *
+import Model.CoursekeyVerify as CoursekeyVerify
+import Model.StudentCheckin as StudentCheckin
+import Model.UserAccount as UserAccount
+import Service.AccountService as AccountService
+import Service.GoogleOAuthService as GoogleOAuthService
+import Service.JWTService as JWTService
+import Service.RollcallService as RollcallService
 
 app = FastAPI()
 

@@ -11,12 +11,10 @@ class Rollcall:
     def StartRollcall(self,info:CoursekeyVerify):
         # return CourseKey
         # generate courseKey, startTime, duration
-        info.Owner
-        info.EndTime
         
         courseKey = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
-        startTime = datetime.timestamp(datetime.now())
-        d = {'CourseKey':courseKey,'StartTime':startTime,'EndTime':info.EndTime,'Owner':info.Owner}
+        startTime = datetime.now()
+        d = {'Coursekey':courseKey,'Owner':info.Owner,'StartTime':startTime,'EndTime':info.EndTime}
         instance = CoursekeyVerify(**d)
         repo.BaseRepository(CoursekeyVerify()).Create(instance)
         return courseKey
