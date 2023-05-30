@@ -16,7 +16,7 @@ class Rollcall:
         startTime = datetime.now()
         d = {'Coursekey':courseKey,'Owner':info.Owner,'StartTime':startTime,'EndTime':info.EndTime}
         instance = CoursekeyVerify(**d)
-        repo.BaseRepository(CoursekeyVerify()).Create(instance)
+        repo.BaseRepository(CoursekeyVerify).Create(instance)
         return courseKey
     def GetStudentList(self,courseKey:str):
         d = {'CourseKey':courseKey}
