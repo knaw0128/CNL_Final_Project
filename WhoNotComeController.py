@@ -1,21 +1,22 @@
 from fastapi import FastAPI, Response
-import Model.CoursekeyVerify as CoursekeyVerify
-import Model.StudentCheckin as StudentCheckin
-import Model.UserAccount as UserAccount
-import Service.AccountService as AccountService
-import Service.GoogleOAuthService as GoogleOAuthService
-import Service.JWTService as JWTService
-import Service.RollcallService as RollcallService
+from Model.CoursekeyVerify import *
+from Model.StudentCheckin import *
+from Model.UserAccount import *
+from Service.AccountService import *
+from Service.BaseOAuthService import *
+from Service.GoogleOAuthService import *
+from Service.JWTService import *
+from Service.RollcallService import *
 
 app = FastAPI()
 
 @app.post("/register/")
-def PostRegister(account:UserAccount.UserAccount):
+def PostRegister(account:UserAccount):
     AccountService.AccountService().Register(account)
     
 
-@app.post("/login/")
-def PostLogin(response: Response, account:UserAccount.UserAccount):
+@app.post("/login/", status_code=200)
+def PostLogin(response: Response, account:UserAccount):
     if AccountService.AccountService().Login(account):
         token = JWTService.JWTService().encode(account.ID)
         response.set_cookie("誰在review我的扣?", token)
@@ -32,7 +33,7 @@ def GetRollcall(courseKey:str):
     RollcallService.Rollcall().GetStudentList(courseKey)
 
 @app.post("/rollcall/")
-def PostRollcall(info:CoursekeyVerify.CoursekeyVerify):
+def PostRollcall(info:CoursekeyVerify):
     RollcallService.Rollcall().StartRollcall(info)
 
 

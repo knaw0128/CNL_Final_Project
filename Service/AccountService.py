@@ -1,6 +1,6 @@
 import Repository.BaseRepository as repo
 from Model.UserAccount import UserAccount
-from .JWTService  import JWTService
+from Service.JWTService import JWTService
 
 class AccountService:
     def __init__(self) -> None:
