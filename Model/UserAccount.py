@@ -1,6 +1,6 @@
-from typing import Optional
+from typing import Union
 from pydantic import BaseModel
 
 class UserAccount(BaseModel):
     ID: str
-    Password: Optional[str]
+    password: Union[str, None]

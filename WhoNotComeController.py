@@ -1,42 +1,59 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, Request, Body, Depends
 from Model.CoursekeyVerify import *
-from Model.StudentCheckin import *
+from Model.StudentCheckIn import *
 from Model.UserAccount import *
 from Service.AccountService import *
 from Service.BaseOAuthService import *
 from Service.GoogleOAuthService import *
 from Service.JWTService import *
 from Service.RollcallService import *
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['http://localhost:5173'],
+    allow_headers=['*'],
+    allow_credentials=True,
+    allow_methods=['*']
+)
 
 @app.post("/register/")
-def PostRegister(account:UserAccount):
-    AccountService.AccountService().Register(account)
+async def PostRegister(request: Request):
+    a = await request.json()
+    account = UserAccount(**a)
+    AccountService().Register(account)
+    token = JWTService().encode(account.ID)
+    return token
     
 
 @app.post("/login/", status_code=200)
-def PostLogin(response: Response, account:UserAccount):
-    if AccountService.AccountService().Login(account):
-        token = JWTService.JWTService().encode(account.ID)
-        response.set_cookie("誰在review我的扣?", token)
+async def PostLogin(response: Response, request: Request):
+    tmp = await request.json()
+    account = UserAccount(**tmp)
+    if AccountService().Login(account):
+        token = JWTService().encode(account.ID)
+        return token
     else:
-        # TODO: return an error
-        pass
+        response.status_code=401
 
 @app.get("/logout/")
-def GetLogout():
-    AccountService.AccountService().Logout()
+async def GetLogout():
+    AccountService().Logout()
 
-@app.get("/getStudentList/")
-def GetRollcall(courseKey:str):
-    RollcallService.Rollcall().GetStudentList(courseKey)
+@app.get("/rollcall/")
+async def GetRollcall(courseKey:str):
+    print(RollcallService().GetStudentList(courseKey))
+    return RollcallService().GetStudentList(courseKey)
 
 @app.post("/rollcall/")
-def PostRollcall(info:CoursekeyVerify):
-    RollcallService.Rollcall().StartRollcall(info)
+async def PostRollcall(request: Request):
+    tmp = await request.json()
+    tmp['Owner'] = JWTService().decode(request.headers['authorization'])['username']
+    info = CoursekeyVerify(**tmp)
+    return RollcallService().StartRollcall(info)
 
 
 @app.get("/googleoauth/") # Not sure method
-def PostGoogleOAuth(state,access_token):
-    GoogleOAuthService.GoogleOAuthService().InsertStudentInfo(access_token,state)
+async def PostGoogleOAuth(state,access_token):
+    GoogleOAuthService().InsertStudentInfo(access_token,state)

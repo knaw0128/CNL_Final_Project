@@ -12,7 +12,7 @@ class BaseRepository(IBaseRepository):
             "db": "appdb",
             "charset": "utf8"
         }
-        self.table_name = type(repoType).__name__
+        self.table_name = repoType.__name__
         self.connect_db = pymysql.connect(**self.db_settings)
 
     def Create(self, newData):

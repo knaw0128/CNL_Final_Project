@@ -1,11 +1,9 @@
-import datetime
-from typing import Optional
 from pydantic import BaseModel
-
+from typing import Union
 
 class CoursekeyVerify(BaseModel):
     Coursekey: str
-    Owner: str
-    StartTime: Optional[datetime.datetime]
-    EndTime: Optional[datetime.datetime]
+    StartTime: Union[str, None] 
+    EndTime: Union[str, None] 
+    Owner: Union[str, None] 
     
