@@ -12,7 +12,11 @@ def PostRegister(account:UserAccount.UserAccount):
 @app.post("/login/")
 def PostLogin(response: Response, account:UserAccount.UserAccount):
     if AccountService.AccountService().Login(account):
-        token = JWTService.JWTService().de
+        token = JWTService.JWTService().encode(account.ID)
+        response.set_cookie("誰在review我的扣?", token)
+    else:
+        # TODO: return an error
+        pass
 
 @app.get("/logout/")
 def GetLogout():
